@@ -1,0 +1,25 @@
+.postContent h1 {
+  @apply text-3xl;
+  @apply py-2;
+}
+
+.postContent p {
+  @apply text-base;
+  @apply py-1;
+}
+
+.postContent h2 {
+  @apply text-2xl;
+  @apply py-2;
+}
+
+.postContent h3 {
+  @apply text-lg;
+  @apply py-2;
+}
+
+.postContent ul {
+  @apply list-disc;
+  @apply pl-10;
+  @apply py-4;
+}
