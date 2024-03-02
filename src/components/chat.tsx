@@ -1,24 +1,39 @@
 'use client';
 
-import { useChat } from 'ai/react';
+import { Message, useChat } from 'ai/react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { Label } from './ui/label';
 import H1 from './h1';
 import parse from 'html-react-parser';
+import { useEffect, useState } from 'react';
 
 export default function Chat() {
-  const { messages, input, handleInputChange, handleSubmit } = useChat({
-    api: '/api/openai',
-    initialMessages: [
-      {
-        id: '1',
-        role: 'assistant',
-        content: 'Hello, how can I help you today?',
-      },
-    ],
-  });
-  console.log(messages);
+  const { messages, input, handleInputChange, handleSubmit, setMessages } =
+    useChat({
+      api: '/api/openai',
+      initialMessages: [
+        {
+          id: '1',
+          role: 'assistant',
+          content: 'Hello, how can I help you today?',
+        },
+      ],
+    });
+
+  useEffect(() => {
+    const lastMessage = messages[messages.length - 1];
+    if (lastMessage?.role === 'user') {
+      setMessages([
+        ...messages,
+        {
+          id: '2',
+          role: 'assistant',
+          content: 'I can help',
+        },
+      ]);
+    }
+  }, [messages]);
 
   return (
     <section className='flex flex-col h-full w-full justify-between'>
@@ -34,6 +49,7 @@ export default function Chat() {
                   {m.role === 'user' ? 'User: ' : 'AI: '}
                 </span>
                 {parse(newText)}
+                {m.annotations && <p>Sources</p>}
               </li>
             </>
           );
@@ -47,6 +63,7 @@ export default function Chat() {
             value={input}
             onChange={handleInputChange}
             placeholder='Type here...'
+            className='bg-white'
           />
           <Button type='submit'>Send</Button>
         </div>

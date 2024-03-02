@@ -11,17 +11,20 @@ const openai = new OpenAI({
 export async function POST(req: Request) {
   // Extract the `messages` from the body of the request
   const { messages } = await req.json();
-  console.log(messages);
+  const initialMessages = messages.slice(0,-1)
+  const currentMessage = messages[messages.length - 1]
+
  
   // Request the OpenAI API for the response based on the prompt
   const response = await openai.chat.completions.create({
     model: 'gpt-3.5-turbo',
     stream: true,
-    messages: messages,
+    messages: messages
   });
  
   // Convert the response into a friendly text-stream
   const stream = OpenAIStream(response);
+
  
   // Respond with the stream
   return new StreamingTextResponse(stream);
