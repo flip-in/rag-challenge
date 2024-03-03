@@ -13,7 +13,7 @@ export default async function Page() {
       </div>
       <div className='md:grid md:grid-cols-3 grid-rows-[45px_300px_500px] md:grid-rows-[45px_1fr] gap-4 md:h-[600px]'>
         <div className='md:row-start-2 md:row-span-full md:col-start-1 md:col-span-1 relative'>
-          <ContentBlock className='scrollbar overflow-y-auto md:h-[700px]'>
+          <ContentBlock className='scrollbar overflow-y-auto md:h-[600px]'>
             <PostList posts={posts} />
           </ContentBlock>
         </div>
