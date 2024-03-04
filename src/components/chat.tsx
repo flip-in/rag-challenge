@@ -7,61 +7,73 @@ import { Label } from './ui/label';
 import H1 from './h1';
 import parse from 'html-react-parser';
 import { useEffect, useState } from 'react';
+import { getMessage } from '@/actions/actions';
+import { sleep } from '@/lib/utils';
+import { Response } from '@/lib/types';
+import React from 'react';
+import Annotations from './annotations';
 
 export default function Chat() {
-  const { messages, input, handleInputChange, handleSubmit, setMessages } =
-    useChat({
-      api: '/api/openai',
-      initialMessages: [
-        {
-          id: '1',
-          role: 'assistant',
-          content: 'Hello, how can I help you today?',
-        },
-      ],
-    });
+  // const { messages, input, handleInputChange, handleSubmit, setMessages } =
+  //   useChat({
+  //     api: '/api/openai',
+  //     initialMessages: [
+  //       {
+  //         id: '1',
+  //         role: 'assistant',
+  //         content: 'Hello, how can I help you today?',
+  //       },
+  //     ],
+  //   });
+  const [mockInput, setMockInput] = useState('');
+  const [mockMessages, setMockMessages] = useState<Response[]>([
+    {
+      id: '1',
+      role: 'assistant',
+      content: 'Hello, how can I help you today?',
+    },
+  ]);
 
-  useEffect(() => {
-    const lastMessage = messages[messages.length - 1];
-    if (lastMessage?.role === 'user') {
-      setMessages([
-        ...messages,
-        {
-          id: '2',
-          role: 'assistant',
-          content: 'I can help',
-        },
-      ]);
-    }
-  }, [messages]);
+  const handleMockSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setMockMessages((prev) => [
+      ...prev,
+      { id: new Date().getTime().toString(), role: 'user', content: mockInput },
+    ]);
+    setMockInput('');
+    const newMessage: Response = await getMessage(mockInput);
+    await sleep(2000).then(() => {
+      setMockMessages((prev) => [...prev, newMessage]);
+    });
+  };
 
   return (
     <section className='flex flex-col h-full w-full justify-between'>
       <H1 className='m-4'>Search the knowledge base for writing prompts</H1>
       <ul className='bg-white h-3/4 m-4 p-4 flex flex-col-reverse overflow-y-auto scrollbar'>
-        {messages.toReversed().map((m, index) => {
+        {mockMessages.toReversed().map((m, index) => {
           const text = m.content;
           const newText = text.replace(/(?:\r\n|\r|\n)/g, '<br>');
           return (
-            <>
-              <li className='mt-4' key={index}>
+            <React.Fragment key={index}>
+              <li className='mt-4'>
                 <span className='font-semibold'>
                   {m.role === 'user' ? 'User: ' : 'AI: '}
                 </span>
                 {parse(newText)}
-                {m.annotations && <p>Sources</p>}
+                {m.annotations && <Annotations sources={m.annotations} />}
               </li>
-            </>
+            </React.Fragment>
           );
         })}
       </ul>
 
-      <form onSubmit={handleSubmit} className='flex flex-col m-4 space-y-4'>
+      <form onSubmit={handleMockSubmit} className='flex flex-col m-4 space-y-4'>
         <Label>Say something...</Label>
         <div className='flex gap-x-4'>
           <Input
-            value={input}
-            onChange={handleInputChange}
+            value={mockInput}
+            onChange={(e) => setMockInput(e.target.value)}
             placeholder='Type here...'
             className='bg-white'
           />

@@ -4,3 +4,8 @@ import { twMerge } from "tailwind-merge"
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
+
+export function sleep(ms: number) {
+  console.log('sleeping for', ms)
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
