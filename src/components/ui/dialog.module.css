@@ -23,3 +23,7 @@
   @apply pl-10;
   @apply py-4;
 }
+
+.postContent span {
+  @apply bg-red-300;
+}

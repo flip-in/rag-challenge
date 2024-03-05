@@ -8,23 +8,23 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { cn } from '@/lib/utils';
+import { cn, highlightText } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import styles from '@/components/ui/dialog.module.css';
 import { useEffect, useState } from 'react';
 import { getPostById } from '@/actions/actions';
 import { Post } from '@prisma/client';
 import parse from 'html-react-parser';
-import { Annotation } from '@/lib/types';
+import { Excerpt } from '@/lib/types';
 
 type ArticleModalProps = {
   params: { id: string };
-  searchParams: Annotation;
+  searchParams: { excerpts: string };
 };
 
 const ArticleModal = ({ params, searchParams }: ArticleModalProps) => {
-  // console.log(params);
   console.log(searchParams);
+  const excerpts = JSON.parse(searchParams.excerpts || '[]') as Excerpt[];
   const router = useRouter();
   const [post, setPost] = useState<Post | null>();
 
@@ -33,6 +33,8 @@ const ArticleModal = ({ params, searchParams }: ArticleModalProps) => {
       setPost(post);
     });
   }, [params.id]);
+
+  console.log(excerpts);
 
   return (
     <Dialog open={true} onOpenChange={() => router.back()}>
@@ -50,7 +52,9 @@ const ArticleModal = ({ params, searchParams }: ArticleModalProps) => {
         </DialogHeader>
         {post && (
           <div className={styles.postContent}>
-            {post.content && parse(post.content)}
+            {excerpts
+              ? parse(highlightText(post.content, excerpts))
+              : parse(post.content)}
           </div>
         )}
       </DialogContent>

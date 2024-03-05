@@ -14,7 +14,7 @@ export type Annotation = {
   excerpts: Excerpt[];
 }
 
-type Excerpt = {
+export type Excerpt = {
   content: string,
   weight: number
 }
