@@ -6,6 +6,7 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
+  DialogFooter,
 } from '@/components/ui/dialog';
 import { cn, highlightText } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
@@ -24,6 +25,7 @@ type ArticleModalProps = {
 
 const ArticleModal = ({ params, searchParams }: ArticleModalProps) => {
   const excerpts = JSON.parse(searchParams.excerpts || '[]') as Excerpt[];
+  console.log('excerpts', excerpts);
   const router = useRouter();
   const [post, setPost] = useState<Post | null>();
 
@@ -50,6 +52,20 @@ const ArticleModal = ({ params, searchParams }: ArticleModalProps) => {
           <ArticleContent content={post.content} excerpts={excerpts} />
         ) : (
           <Loading />
+        )}
+        {excerpts.length > 1 && (
+          <DialogFooter>
+            <div>
+              <p className='text-sm'>Legend:</p>
+              <ul className='text-xs'>
+                <li className='bg-yellow-100 px-2 font-light'>Low Weight</li>
+                <li className='bg-yellow-500/40 px-2 font-medium'>
+                  Medium Weight
+                </li>
+                <li className='bg-red-300 px-2 font-semibold'>Heavy Weight</li>
+              </ul>
+            </div>
+          </DialogFooter>
         )}
       </DialogContent>
     </Dialog>
