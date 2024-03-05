@@ -6,16 +6,16 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '@/components/ui/dialog';
 import { cn, highlightText } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import styles from '@/components/ui/dialog.module.css';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { getPostById } from '@/actions/actions';
 import { Post } from '@prisma/client';
 import parse from 'html-react-parser';
 import { Excerpt } from '@/lib/types';
+import Skeleton from '@/components/skeleton';
 
 type ArticleModalProps = {
   params: { id: string };
@@ -34,28 +34,23 @@ const ArticleModal = ({ params, searchParams }: ArticleModalProps) => {
     });
   }, [params.id]);
 
-  console.log(excerpts);
-
   return (
     <Dialog open={true} onOpenChange={() => router.back()}>
       <DialogContent
         className={cn(
-          'max-h-screen md:max-h-[70vh] scrollbar overflow-y-scroll md:overflow-y-auto max-w-full md:max-w-[70%] ',
+          'max-h-screen md:min-h-[70vh] md:max-h-[70vh] scrollbar overflow-y-scroll md:overflow-y-auto max-w-full md:max-w-[70%] ',
           styles
         )}
       >
-        <DialogHeader>
-          <DialogTitle>{post ? post.title : 'title'}</DialogTitle>
-          <DialogDescription asChild>
-            <p>{post ? post.author : 'author'}</p>
-          </DialogDescription>
-        </DialogHeader>
-        {post && (
-          <div className={styles.postContent}>
-            {excerpts
-              ? parse(highlightText(post.content, excerpts))
-              : parse(post.content)}
-          </div>
+        {post ? (
+          <ArticleHeader title={post.title} author={post.author} />
+        ) : (
+          <Loading />
+        )}
+        {post ? (
+          <ArticleContent content={post.content} excerpts={excerpts} />
+        ) : (
+          <Loading />
         )}
       </DialogContent>
     </Dialog>
@@ -63,3 +58,44 @@ const ArticleModal = ({ params, searchParams }: ArticleModalProps) => {
 };
 
 export default ArticleModal;
+
+type ArticleHeaderProps = {
+  title: string;
+  author: string;
+};
+
+function ArticleHeader({ title, author }: ArticleHeaderProps) {
+  return (
+    <>
+      <DialogHeader>
+        <DialogTitle>{title}</DialogTitle>
+        <DialogDescription asChild>
+          <p>{author}</p>
+        </DialogDescription>
+      </DialogHeader>
+    </>
+  );
+}
+
+type ArticleContentProps = {
+  content: string;
+  excerpts: Excerpt[];
+};
+
+function ArticleContent({ content, excerpts }: ArticleContentProps) {
+  return (
+    <div className={styles.postContent}>
+      {excerpts ? parse(highlightText(content, excerpts)) : parse(content)}
+    </div>
+  );
+}
+
+function Loading() {
+  return (
+    <div className='flex flex-col items-center gap-y-4 pt-28'>
+      <Skeleton className='h-4 w-2/3 bg-neutral-400' />
+      <Skeleton className='h-4 w-2/3 bg-neutral-400' />
+      <Skeleton className='h-4 w-2/3 bg-neutral-400' />
+    </div>
+  );
+}
