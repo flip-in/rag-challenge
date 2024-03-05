@@ -38,7 +38,7 @@ const ArticleModal = ({ params, searchParams }: ArticleModalProps) => {
     <Dialog open={true} onOpenChange={() => router.back()}>
       <DialogContent
         className={cn(
-          'max-h-screen md:min-h-[70vh] md:max-h-[70vh] scrollbar overflow-y-scroll md:overflow-y-auto max-w-full md:max-w-[70%] ',
+          'max-h-screen min-h-screen md:min-h-[70vh] md:max-h-[70vh] scrollbar overflow-y-scroll md:overflow-y-auto max-w-full md:max-w-[70%] ',
           styles
         )}
       >
