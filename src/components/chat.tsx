@@ -6,7 +6,7 @@ import { Button } from './ui/button';
 import { Label } from './ui/label';
 import H1 from './h1';
 import parse from 'html-react-parser';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { getMessage } from '@/actions/actions';
 import { sleep } from '@/lib/utils';
 import { Response } from '@/lib/types';
@@ -53,14 +53,17 @@ export default function Chat() {
       <ul className='bg-white h-3/4 m-4 p-4 flex flex-col-reverse overflow-y-auto scrollbar'>
         {mockMessages.toReversed().map((m, index) => {
           const text = m.content;
-          const newText = text.replace(/(?:\r\n|\r|\n)/g, '<br>');
+          const formattedMessage = text.replace(/(?:\r\n|\r|\n)/g, '<br>');
+
           return (
             <React.Fragment key={index}>
-              <li className='mt-4'>
-                <span className='font-semibold'>
-                  {m.role === 'user' ? 'User: ' : 'AI: '}
-                </span>
-                {parse(newText)}
+              <li className='mt-4 flex flex-col'>
+                <div>
+                  <span className='font-semibold'>
+                    {m.role === 'user' ? 'User: ' : 'AI: '}
+                  </span>
+                  {parse(formattedMessage)}
+                </div>
                 {m.annotations && <Annotations sources={m.annotations} />}
               </li>
             </React.Fragment>

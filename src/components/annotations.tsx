@@ -1,8 +1,6 @@
 import queryString from 'query-string';
 import { getPostById } from '@/actions/actions';
 import { Annotation } from '@/lib/types';
-import { get } from 'http';
-import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 
@@ -12,18 +10,21 @@ type AnnotationsProps = {
 
 export default function Annotations({ sources }: AnnotationsProps) {
   return (
-    <>
-      <p>Sources: </p>
-      <ul>
+    <div className='ml-auto text-right'>
+      <p className='text-sm mt-4'>Sources: </p>
+      <ul className='text-sm mt-2'>
         {sources.map((source, index) => {
           return (
-            <li key={index}>
+            <li
+              key={index}
+              className='underline text-blue-600 hover:text-blue-800 visited:text-purple-600'
+            >
               <Annotation source={source} />
             </li>
           );
         })}
       </ul>
-    </>
+    </div>
   );
 }
 
@@ -35,12 +36,6 @@ function Annotation({ source }: AnnotationProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [title, setTitle] = useState('');
-
-  useEffect(() => {
-    getPostById(source.id).then((post) => {
-      setTitle(post ? post.title : 'No title');
-    });
-  }, [source.id]);
 
   const createQueryString = useCallback(
     (obj: Record<string, any>) => {
@@ -57,6 +52,12 @@ function Annotation({ source }: AnnotationProps) {
       scroll: false,
     });
   };
+
+  useEffect(() => {
+    getPostById(source.id).then((post) => {
+      setTitle(post ? post.title : 'No title');
+    });
+  }, [source.id]);
 
   return (
     <div className='cursor-pointer' onClick={handleClick}>

@@ -11,7 +11,7 @@ import {
 import { cn, highlightText } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import styles from '@/components/ui/dialog.module.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { getPostById } from '@/actions/actions';
 import { Post } from '@prisma/client';
 import parse from 'html-react-parser';
@@ -25,7 +25,6 @@ type ArticleModalProps = {
 
 const ArticleModal = ({ params, searchParams }: ArticleModalProps) => {
   const excerpts = JSON.parse(searchParams.excerpts || '[]') as Excerpt[];
-  console.log('excerpts', excerpts);
   const router = useRouter();
   const [post, setPost] = useState<Post | null>();
 
@@ -39,7 +38,7 @@ const ArticleModal = ({ params, searchParams }: ArticleModalProps) => {
     <Dialog open={true} onOpenChange={() => router.back()}>
       <DialogContent
         className={cn(
-          'max-h-screen min-h-screen md:min-h-[70vh] md:max-h-[70vh] scrollbar overflow-y-scroll md:overflow-y-auto max-w-full md:max-w-[70%] ',
+          'max-h-screen min-h-screen md:min-h-[70vh] md:max-h-[70vh] scrollbar overflow-y-scroll md:overflow-y-auto max-w-full md:max-w-[70%] lg:max-w-[60%] ',
           styles
         )}
       >
@@ -55,16 +54,7 @@ const ArticleModal = ({ params, searchParams }: ArticleModalProps) => {
         )}
         {excerpts.length > 1 && (
           <DialogFooter>
-            <div>
-              <p className='text-sm'>Legend:</p>
-              <ul className='text-xs'>
-                <li className='bg-yellow-100 px-2 font-light'>Low Weight</li>
-                <li className='bg-yellow-500/40 px-2 font-medium'>
-                  Medium Weight
-                </li>
-                <li className='bg-red-300 px-2 font-semibold'>Heavy Weight</li>
-              </ul>
-            </div>
+            <Legend />
           </DialogFooter>
         )}
       </DialogContent>
@@ -97,10 +87,28 @@ type ArticleContentProps = {
   excerpts: Excerpt[];
 };
 
-function ArticleContent({ content, excerpts }: ArticleContentProps) {
+export function ArticleContent({ content, excerpts }: ArticleContentProps) {
+  const highLightedText = useMemo(
+    () => highlightText(content, excerpts),
+    [content, excerpts]
+  );
+
   return (
     <div className={styles.postContent}>
-      {excerpts ? parse(highlightText(content, excerpts)) : parse(content)}
+      {excerpts ? parse(highLightedText) : parse(content)}
+    </div>
+  );
+}
+
+export function Legend() {
+  return (
+    <div>
+      <p className='text-sm'>Legend:</p>
+      <ul className='text-xs'>
+        <li className='bg-yellow-100 px-2 font-light'>Low Weight</li>
+        <li className='bg-yellow-500/40 px-2 font-medium'>Medium Weight</li>
+        <li className='bg-red-300 px-2 font-semibold'>Heavy Weight</li>
+      </ul>
     </div>
   );
 }
