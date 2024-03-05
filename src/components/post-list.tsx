@@ -30,8 +30,12 @@ export default function PostList({ posts, sourceArticle }: PostListProps) {
           return (
             <li key={post.id} className='flex w-full cursor-pointer'>
               {/* <PostListItem post={post} sourceArticle={sourceArticle} /> */}
-              <Link href={`/app/dashboard/article/${post.id}`} scroll={false}>
-                <div className=' p-4 border-b border-light hover:bg-zinc-100 text-left w-full'>
+              <Link
+                href={`/app/dashboard/article/${post.id}`}
+                scroll={false}
+                className='text-left w-full'
+              >
+                <div className=' p-4 border-b border-light hover:bg-zinc-100'>
                   <h2 className='text-md'>{post.title}</h2>
                   <p className='text-sm'>{post.author}</p>
                 </div>

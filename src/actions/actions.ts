@@ -49,11 +49,11 @@ export async function getMessage(input: string){
           excerpts: [
             {
               content: 'This is a source',
-              weight: 0.5
+              weight: 1
             },
             {
               content: 'This is another source',
-              weight: 0.5
+              weight: 2
             }
           ]
         },
@@ -62,11 +62,11 @@ export async function getMessage(input: string){
           excerpts: [
             {
               content: 'This is a source',
-              weight: 0.5
+              weight: 3
             },
             {
               content: 'This is another source',
-              weight: 0.5
+              weight: 4
             }
           ],
           
