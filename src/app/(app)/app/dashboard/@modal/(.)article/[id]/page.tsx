@@ -10,7 +10,7 @@ import {
 import { cn, highlightText } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import styles from '@/components/ui/dialog.module.css';
-import { Suspense, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getPostById } from '@/actions/actions';
 import { Post } from '@prisma/client';
 import parse from 'html-react-parser';
@@ -23,7 +23,6 @@ type ArticleModalProps = {
 };
 
 const ArticleModal = ({ params, searchParams }: ArticleModalProps) => {
-  console.log(searchParams);
   const excerpts = JSON.parse(searchParams.excerpts || '[]') as Excerpt[];
   const router = useRouter();
   const [post, setPost] = useState<Post | null>();
