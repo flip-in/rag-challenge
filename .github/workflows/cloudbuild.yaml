@@ -20,9 +20,9 @@ jobs:
     steps:
       - name: 'Add env to .env'
         run: |
-          echo "REACT_APP_OPEN_AI_KEY=$REACT_APP_OPEN_AI_KEY" >> .env
-          echo "KINDE_CLIENT_ID=$KINDE_CLIENT_ID" >> .env
-          echo "KINDE_CLIENT_SECRET=$KINDE_CLIENT_SECRET" >> .env
+          echo REACT_APP_OPEN_AI_KEY=${{secrets.REACT_APP_OPEN_AI_KEY}} >> .env
+          echo KINDE_CLIENT_ID=${{secrets.KINDE_CLIENT_ID}} >> .env
+          echo KINDE_CLIENT_SECRET=${{secrets.KINDE_CLIENT_SECRET}} >> .env
           cat env
 
       - name: Checkout
