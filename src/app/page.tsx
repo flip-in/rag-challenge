@@ -20,7 +20,7 @@ export default function Home() {
         </p>
         <div className='mt-10 space-x-3'>
           <Button asChild>
-            <RegisterLink>Get Started</RegisterLink>
+            <Link href={'/signup'}>Get Started</Link>
           </Button>
           <Button asChild variant={'secondary'}>
             <LoginLink>Sign in</LoginLink>

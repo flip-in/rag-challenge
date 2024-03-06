@@ -44,7 +44,7 @@ export default function Chat() {
 
   return (
     <section className='flex flex-col h-full w-full justify-between'>
-      <H1 className='m-4'>Search the knowledge base for writing prompts</H1>
+      <H1 className='m-4'>Use the assistant to search your archives.</H1>
       <ul className='bg-white h-3/4 m-4 p-4 flex flex-col-reverse overflow-y-auto scrollbar'>
         {mockMessages.toReversed().map((m, index) => {
           // {messages.toReversed().map((m, index) => {
