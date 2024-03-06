@@ -23,14 +23,16 @@ jobs:
     steps:
       - name: 'Create env file'
         run: |
-          echo REACT_APP_OPEN_AI_KEY="$REACT_APP_OPEN_AI_KEY" >> .env
-          echo KINDE_CLIENT_ID="$KINDE_CLIENT_ID" >> .env
-          echo KINDE_CLIENT_SECRET="$KINDE_CLIENT_SECRET" >> .env
-          echo KINDE_ISSUER_URL="https://kinexis.kinde.com" >> .env
-          echo KINDE_SITE_URL="https://rag-challenge-urg7zhyvwa-an.a.run.app" >> .env
-          echo KINDE_POST_LOGOUT_REDIRECT_URL="https://rag-challenge-urg7zhyvwa-an.a.run.app" >> .env
-          echo KINDE_POST_LOGIN_REDIRECT_URL="https://rag-challenge-urg7zhyvwa-an.a.run.app/app/dashboard" >> .env
-          cat .env
+          touch .env.production
+          echo DATABASE_URL="$DATABASE_URL" >> .env.production
+          echo REACT_APP_OPEN_AI_KEY="$REACT_APP_OPEN_AI_KEY" >> .env.production
+          echo KINDE_CLIENT_ID="$KINDE_CLIENT_ID" >> .env.production
+          echo KINDE_CLIENT_SECRET="$KINDE_CLIENT_SECRET" >> .env.production
+          echo KINDE_ISSUER_URL="https://kinexis.kinde.com" >> .env.production
+          echo KINDE_SITE_URL="https://rag-challenge-urg7zhyvwa-an.a.run.app" >> .env.production
+          echo KINDE_POST_LOGOUT_REDIRECT_URL="https://rag-challenge-urg7zhyvwa-an.a.run.app" >> .env.production
+          echo KINDE_POST_LOGIN_REDIRECT_URL="https://rag-challenge-urg7zhyvwa-an.a.run.app/app/dashboard" >> .env.production
+          cat .env.production
 
       - name: Checkout
         uses: actions/checkout@v2
@@ -62,3 +64,4 @@ jobs:
             --region $CLOUD_RUN_REGION \
             --allow-unauthenticated \
             --quiet
+            --set-env-vars A=VALUE,B=VALUE
