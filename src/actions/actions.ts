@@ -4,7 +4,6 @@ import { Post } from "@prisma/client"
 import prisma from "@/lib/db"
 import { excerpts } from "@/lib/data"
 import { notFound } from "next/navigation"
-import { sleep } from "@/lib/utils"
 
 export async function getMessage(input: string){
   if (input === 'hello') {

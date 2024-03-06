@@ -34,7 +34,6 @@ type AnnotationProps = {
 
 function Annotation({ source }: AnnotationProps) {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [title, setTitle] = useState('');
 
   const createQueryString = useCallback(
@@ -43,7 +42,7 @@ function Annotation({ source }: AnnotationProps) {
         excerpts: JSON.stringify(obj.excerpts),
       });
     },
-    [searchParams]
+    [source]
   );
 
   const handleClick = () => {

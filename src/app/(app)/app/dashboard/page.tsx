@@ -4,8 +4,6 @@ import ContentBlock from '@/components/content-block';
 import PostList from '@/components/post-list';
 import prisma from '@/lib/db';
 import { Annotation } from '@/lib/types';
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
-import { redirect } from 'next/navigation';
 
 type PageProps = {
   searchParams: Annotation;
