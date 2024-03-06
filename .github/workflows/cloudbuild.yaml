@@ -6,6 +6,14 @@ on:
       - master
       - main
 
+env:
+  CLOUD_RUN_PROJECT_ID: ${{ secrets.CLOUD_RUN_PROJECT_NAME }}
+  REACT_APP_OPEN_AI_KEY: ${{ secrets.REACT_APP_OPEN_AI_KEY }}
+  CLOUD_RUN_REGION: asia-northeast1
+  # project-name but it can be anything you want
+  REPO_NAME: rag-challenge
+  DATABASE_URL: 'file:./dev.db'
+
 jobs:
   build-and-deploy:
     name: Setup, Build, and Deploy
@@ -13,7 +21,6 @@ jobs:
     steps:
       - name: 'Create env file'
         run: |
-          touch .env
           echo DATABASE_URL="'file:./dev.db'" >> .env
           echo REACT_APP_OPEN_AI_KEY=${{secrets.REACT_APP_OPEN_AI_KEY}} >> .env
           echo KINDE_CLIENT_ID=${{secrets.KINDE_CLIENT_ID}} >> .env
@@ -22,9 +29,6 @@ jobs:
           echo KINDE_SITE_URL="https://rag-challenge-urg7zhyvwa-an.a.run.app" >> .env
           echo KINDE_POST_LOGOUT_REDIRECT_URL="https://rag-challenge-urg7zhyvwa-an.a.run.app" >> .env
           echo KINDE_POST_LOGIN_REDIRECT_URL="https://rag-challenge-urg7zhyvwa-an.a.run.app/app/dashboard" >> .env
-          echo CLOUD_RUN_PROJECT_ID: ${{ secrets.CLOUD_RUN_PROJECT_NAME }} >> .env
-          echo CLOUD_RUN_REGION: asia-northeast1 >> .env
-          echo REPO_NAME: rag-challenge >> .env
           cat .env
 
       - name: Checkout
