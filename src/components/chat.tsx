@@ -17,6 +17,13 @@ export default function Chat() {
   // const { messages, input, handleInputChange, handleSubmit, setMessages } =
   //   useChat({
   //     api: '/api/openai',
+  //     initialMessages: [
+  //       {
+  //         id: '1',
+  //         role: 'assistant',
+  //         content: 'Hello, how can I help you today?',
+  //       },
+  //     ],
   //   });
   const [mockInput, setMockInput] = useState(
     'What can you tell me about the effect of AI on space travel?'
@@ -49,9 +56,7 @@ export default function Chat() {
         {mockMessages.toReversed().map((m, index) => {
           // {messages.toReversed().map((m, index) => {
           const text = m.content;
-          const formattedMessage = parse(
-            text.replace(/(?:\r\n|\r|\n)/g, '<br>')
-          );
+          const formattedMessage = text.replace(/(?:\r\n|\r|\n)/g, '<br>');
 
           return (
             <React.Fragment key={index}>
@@ -60,7 +65,7 @@ export default function Chat() {
                   <span className='font-semibold'>
                     {m.role === 'user' ? 'User: ' : 'AI: '}
                   </span>
-                  {formattedMessage}
+                  {parse(formattedMessage)}
                 </div>
                 {m.annotations && <Annotations sources={m.annotations} />}
               </li>
