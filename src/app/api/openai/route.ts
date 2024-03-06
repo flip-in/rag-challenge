@@ -5,7 +5,7 @@ import { OpenAIStream, StreamingTextResponse } from 'ai';
 // See https://vercel.com/docs/concepts/functions/edge-functions
  
 const openai = new OpenAI({
-  apiKey: process.env.REACT_APP_OPEN_AI_KEY!,
+  apiKey: global.process.env.REACT_APP_OPEN_AI_KEY!,
 });
  
 export async function POST(req: Request) {
