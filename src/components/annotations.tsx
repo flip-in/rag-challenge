@@ -1,7 +1,7 @@
 import queryString from 'query-string';
 import { getPostById } from '@/actions/actions';
 import { Annotation } from '@/lib/types';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 
 type AnnotationsProps = {

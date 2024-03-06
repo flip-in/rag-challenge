@@ -2,7 +2,6 @@
 
 import { Post } from "@prisma/client"
 import prisma from "@/lib/db"
-import { excerpts } from "@/lib/data"
 import { notFound } from "next/navigation"
 
 export async function getMessage(input: string){

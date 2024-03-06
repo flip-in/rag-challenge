@@ -41,7 +41,7 @@ export default function ArticleModal({
     <Dialog open={true} onOpenChange={() => router.back()}>
       <DialogContent
         className={cn(
-          'max-h-screen min-h-screen md:min-h-[70vh] md:max-h-[70vh] scrollbar overflow-y-scroll md:overflow-y-auto max-w-full md:max-w-[70%] lg:max-w-[60%] ',
+          'max-h-screen min-h-screen md:min-h-[40vh] md:max-h-[70vh] scrollbar overflow-y-scroll md:overflow-y-auto max-w-full md:max-w-[70vw] 2xl:max-w-[40%] ',
           styles
         )}
       >
