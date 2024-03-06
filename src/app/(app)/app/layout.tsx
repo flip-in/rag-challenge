@@ -14,7 +14,6 @@ export default async function DashboardLayout({
       <div className='flex flex-col min-h-screen max-w-[1050px] mx-auto px-4'>
         <AppHeader />
         {children}
-        {/* <Footer /> */}
       </div>
     </>
   );
