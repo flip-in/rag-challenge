@@ -6,7 +6,7 @@ export default function Branding() {
       <H1>
         Insight<span className='font-semibold'>Intel</span>
       </H1>
-      <p className='text-lg opacity-80'>Your writing assistant</p>
+      <p className='text-lg opacity-80'>Your writing companion</p>
     </section>
   );
 }

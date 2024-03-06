@@ -23,7 +23,10 @@ type ArticleModalProps = {
   searchParams: { excerpts: string };
 };
 
-const ArticleModal = ({ params, searchParams }: ArticleModalProps) => {
+export default function ArticleModal({
+  params,
+  searchParams,
+}: ArticleModalProps) {
   const excerpts = JSON.parse(searchParams.excerpts || '[]') as Excerpt[];
   const router = useRouter();
   const [post, setPost] = useState<Post | null>();
@@ -60,9 +63,7 @@ const ArticleModal = ({ params, searchParams }: ArticleModalProps) => {
       </DialogContent>
     </Dialog>
   );
-};
-
-export default ArticleModal;
+}
 
 type ArticleHeaderProps = {
   title: string;
@@ -82,12 +83,12 @@ function ArticleHeader({ title, author }: ArticleHeaderProps) {
   );
 }
 
-type ArticleContentProps = {
+export type ArticleContentProps = {
   content: string;
   excerpts: Excerpt[];
 };
 
-export function ArticleContent({ content, excerpts }: ArticleContentProps) {
+function ArticleContent({ content, excerpts }: ArticleContentProps) {
   const highLightedText = useMemo(
     () => highlightText(content, excerpts),
     [content, excerpts]
@@ -100,7 +101,7 @@ export function ArticleContent({ content, excerpts }: ArticleContentProps) {
   );
 }
 
-export function Legend() {
+function Legend() {
   return (
     <div>
       <p className='text-sm'>Legend:</p>

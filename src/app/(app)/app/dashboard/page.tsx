@@ -4,12 +4,20 @@ import ContentBlock from '@/components/content-block';
 import PostList from '@/components/post-list';
 import prisma from '@/lib/db';
 import { Annotation } from '@/lib/types';
+import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
+import { redirect } from 'next/navigation';
 
 type PageProps = {
   searchParams: Annotation;
 };
 
 export default async function Page({ searchParams }: PageProps) {
+  const { isAuthenticated } = getKindeServerSession();
+  const isLoggedIn = await isAuthenticated();
+  if (!isLoggedIn) {
+    redirect('/api/auth/login');
+  }
+
   const posts = await prisma.post.findMany({});
 
   return (

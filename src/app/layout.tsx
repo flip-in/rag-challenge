@@ -5,8 +5,8 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Exciting RAG App',
-  description: 'Search the knowledge base',
+  title: 'InsightIntel - Your Writing Companion',
+  description: 'Write articles with AI assistance',
 };
 
 export default function RootLayout({

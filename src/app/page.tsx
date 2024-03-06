@@ -1,6 +1,9 @@
 import { Button } from '@/components/ui/button';
-import Image from 'next/image';
 import Link from 'next/link';
+import {
+  RegisterLink,
+  LoginLink,
+} from '@kinde-oss/kinde-auth-nextjs/components';
 
 export default function Home() {
   return (
@@ -17,10 +20,10 @@ export default function Home() {
         </p>
         <div className='mt-10 space-x-3'>
           <Button asChild>
-            <Link href='/app/dashboard'>Get started</Link>
+            <RegisterLink>Get Started</RegisterLink>
           </Button>
           <Button asChild variant={'secondary'}>
-            <Link href={'/login'}>Log in</Link>
+            <LoginLink>Sign in</LoginLink>
           </Button>
         </div>
       </div>
