@@ -4,7 +4,6 @@ import {
   RegisterLink,
   LoginLink,
 } from '@kinde-oss/kinde-auth-nextjs/components';
-import H1 from '@/components/h1';
 
 export default function Home() {
   return (
