@@ -44,9 +44,9 @@ jobs:
           echo KINDE_CLIENT_ID="$KINDE_CLIENT_ID" >> .env
           echo KINDE_CLIENT_SECRET="$KINDE_CLIENT_SECRET" >> .env
           echo KINDE_ISSUER_URL="https://kinexis.kinde.com" >> .env
-          echo KINDE_SITE_URL="https://rag-challenge-urg7zhyvwa-an.a.run.app" >> .env
-          echo KINDE_POST_LOGOUT_REDIRECT_URL="https://rag-challenge-urg7zhyvwa-an.a.run.app" >> .env
-          echo KINDE_POST_LOGIN_REDIRECT_URL="https://rag-challenge-urg7zhyvwa-an.a.run.app/app/dashboard" >> .env
+          echo KINDE_SITE_URL="https://rag-challenge-urg7zhyvwa-ez.a.run.app" >> .env
+          echo KINDE_POST_LOGOUT_REDIRECT_URL="https://rag-challenge-urg7zhyvwa-ez.a.run.app" >> .env
+          echo KINDE_POST_LOGIN_REDIRECT_URL="https://rag-challenge-urg7zhyvwa-ez.a.run.app/app/dashboard" >> .env
           cat .env
           docker build . --tag "gcr.io/$CLOUD_RUN_PROJECT_ID/$REPO_NAME:$GITHUB_SHA"
       - name: Push image to GCR
