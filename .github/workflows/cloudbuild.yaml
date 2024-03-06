@@ -30,6 +30,7 @@ jobs:
           echo KINDE_SITE_URL="https://rag-challenge-urg7zhyvwa-an.a.run.app" >> .env
           echo KINDE_POST_LOGOUT_REDIRECT_URL="https://rag-challenge-urg7zhyvwa-an.a.run.app" >> .env
           echo KINDE_POST_LOGIN_REDIRECT_URL="https://rag-challenge-urg7zhyvwa-an.a.run.app/app/dashboard" >> .env
+          cat .env
 
       - name: Checkout
         uses: actions/checkout@v2
