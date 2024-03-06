@@ -6,7 +6,7 @@ import { Button } from './ui/button';
 import { Label } from './ui/label';
 import H1 from './h1';
 import parse from 'html-react-parser';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getMessage } from '@/actions/actions';
 import { sleep } from '@/lib/utils';
 import { Response } from '@/lib/types';
@@ -17,15 +17,10 @@ export default function Chat() {
   // const { messages, input, handleInputChange, handleSubmit, setMessages } =
   //   useChat({
   //     api: '/api/openai',
-  //     initialMessages: [
-  //       {
-  //         id: '1',
-  //         role: 'assistant',
-  //         content: 'Hello, how can I help you today?',
-  //       },
-  //     ],
   //   });
-  const [mockInput, setMockInput] = useState('');
+  const [mockInput, setMockInput] = useState(
+    'What can you tell me about the effect of AI on space travel?'
+  );
   const [mockMessages, setMockMessages] = useState<Response[]>([
     {
       id: '1',
@@ -52,8 +47,11 @@ export default function Chat() {
       <H1 className='m-4'>Search the knowledge base for writing prompts</H1>
       <ul className='bg-white h-3/4 m-4 p-4 flex flex-col-reverse overflow-y-auto scrollbar'>
         {mockMessages.toReversed().map((m, index) => {
+          // {messages.toReversed().map((m, index) => {
           const text = m.content;
-          const formattedMessage = text.replace(/(?:\r\n|\r|\n)/g, '<br>');
+          const formattedMessage = parse(
+            text.replace(/(?:\r\n|\r|\n)/g, '<br>')
+          );
 
           return (
             <React.Fragment key={index}>
@@ -62,7 +60,7 @@ export default function Chat() {
                   <span className='font-semibold'>
                     {m.role === 'user' ? 'User: ' : 'AI: '}
                   </span>
-                  {parse(formattedMessage)}
+                  {formattedMessage}
                 </div>
                 {m.annotations && <Annotations sources={m.annotations} />}
               </li>
@@ -71,13 +69,20 @@ export default function Chat() {
         })}
       </ul>
 
-      <form onSubmit={handleMockSubmit} className='flex flex-col m-4 space-y-4'>
+      <form
+        onSubmit={handleMockSubmit}
+        // onSubmit={handleSubmit}
+        className='flex flex-col m-4 space-y-4'
+      >
         <Label>Say something...</Label>
         <div className='flex gap-x-4'>
           <Input
+            required
             value={mockInput}
+            // value={input}
             onChange={(e) => setMockInput(e.target.value)}
-            placeholder='Type here...'
+            // onChange={handleInputChange}
+            placeholder='Try asking about layoffs or space travel..'
             className='bg-white'
           />
           <Button type='submit'>Send</Button>

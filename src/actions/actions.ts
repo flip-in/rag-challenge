@@ -6,11 +6,11 @@ import { excerpts } from "@/lib/data"
 import { notFound } from "next/navigation"
 
 export async function getMessage(input: string){
-  if (input === 'hello') {
+  if (input.includes('space')) {
     return {
       id: new Date().getTime().toString(),
       role: 'assistant',
-      content: "Recent advancements in technology, particularly in artificial intelligence, have propelled space exploration and knowledge acquisition to unprecedented heights. AI's ability to analyze vast amounts of data from space-based instruments like telescopes and satellites has revolutionized our understanding of the universe. Not only can AI systems process information at a faster rate than humans, but they can also identify patterns and make predictions that were once unimaginable. Despite the challenges, such as the significant costs associated with space missions and the need for international collaboration, AI presents an opportunity to augment human capabilities and push the boundaries of exploration further. Embracing AI in space exploration opens new frontiers for discovery and innovation, marking an exciting era in our quest to explore the final frontier.",
+      content: `Recent advancements in technology, particularly in artificial intelligence, have propelled space exploration and knowledge acquisition to unprecedented heights. \n\nAI's ability to analyze vast amounts of data from space-based instruments like telescopes and satellites has revolutionized our understanding of the universe. Not only can AI systems process information at a faster rate than humans, but they can also identify patterns and make predictions that were once unimaginable. \n\nDespite the challenges, such as the significant costs associated with space missions and the need for international collaboration, AI presents an opportunity to augment human capabilities and push the boundaries of exploration further. \n\nEmbracing AI in space exploration opens new frontiers for discovery and innovation, marking an exciting era in our quest to explore the final frontier.`,
       annotations: [
         {
           id: 1,
@@ -39,43 +39,56 @@ export async function getMessage(input: string){
       ],
   
     }
+  } else if (input.includes('layoffs')) {
+    return {
+      id: new Date().getTime().toString(),
+      role: 'assistant',
+      content: `Hello! I'm here to help you understand the complexities of layoffs. Layoffs are a challenging process for both employees and companies alike. Understanding the causes and consequences is crucial in making informed decisions. Common causes include shifts in company strategy or economic downturns, leading to decreased demand for products or services.\n\nThe impact of layoffs is significant, affecting employees, companies, and communities. Employees often face financial insecurity and loss of benefits, while companies may experience decreased productivity and morale among remaining staff. This can ripple out to the wider community, increasing unemployment and reducing economic activity.\n\nHowever, it's important to explore alternatives to layoffs whenever possible. Options like reducing work hours or offering early retirement packages can mitigate the negative effects on employees and benefit the company in the long run.\n\nIn conclusion, layoffs should be approached with caution, and understanding their causes and consequences is key. By considering alternatives and making informed decisions, companies can navigate these difficult situations with greater sensitivity and care.
+      `,
+      annotations: [
+        {
+          id: 5,
+          excerpts: [
+            { content: "studies have shown that poor mental health can have a significant impact on productivity", weight: 3 },
+            { content: "Individuals who struggle with mental health issues such as anxiety and depression often have difficulty focusing", weight: 4 },
+            {  content: "Creating a supportive and inclusive workplace can go a long way in promoting good mental health", weight: 5 },
+            { content: "Employers play a key role in promoting mental health in the workplace", weight: 5 },
+            { content: "It is also important to break the stigma surrounding mental health", weight: 4 },
+          ]
+        },
+        {
+          id: 11,
+          excerpts: [
+            { content: "The sudden loss of a job can cause feelings of stress, anxiety, and depression", weight: 4 },
+            { content: "Losing a job can cause a great deal of stress and anxiety", weight: 4 },
+            { content: "The process of layoffs can be emotionally challenging for both the employees who are let go, as well as those who remain with the company", weight: 3 },
+            { content: "The loss of a job can be a significant blow to one's self-esteem", weight: 5 },
+            { content: "It's important for companies to consider the impact of layoffs on employee mental health", weight: 5 },
+            { content: "Additionally, the process of layoffs can be emotionally challenging for both the employees who are let go, as well as those who remain with the company", weight: 2 },
+            { content: "They may feel guilty for keeping their jobs, or worry about the future of the company and their own job security", weight: 1 },
+          ],
+        },
+        {
+
+          id: 12,
+          excerpts: [
+            { content: "It is important to understand the causes and consequences of layoffs", weight: 5 },
+            { content: "Some common causes include a decrease in demand for the company's products or services", weight: 4 },
+            { content: "Layoffs can have a significant impact on the affected employees, as well as the company and the wider community", weight: 5 },
+            { content: "Companies may also experience a loss of productivity and morale among remaining employees", weight: 4 },
+            { content: "It is important to consider alternatives to layoffs", weight: 5 },
+          ],
+        },
+      ],
+  
+    }
   } else {
     return {
       id: new Date().getTime().toString(),
       role: 'assistant',
-      content: 'I found this',
-      annotations: [
-        {
-          id: 3,
-          excerpts: [
-            {
-              content: 'This is a source',
-              weight: 1
-            },
-            {
-              content: 'This is another source',
-              weight: 2
-            }
-          ]
-        },
-        {
-          id: 4,
-          excerpts: [
-            {
-              content: 'This is a source',
-              weight: 3
-            },
-            {
-              content: 'This is another source',
-              weight: 4
-            }
-          ],
-          
-        }
-      ],
-  
-    }
+      content: 'I hope I was helpful to you. If you have any other questions, feel free to ask.',
   }
+}
 }
 
 export async function getPostById(id: number): Promise<Post>{

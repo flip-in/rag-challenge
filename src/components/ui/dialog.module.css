@@ -6,6 +6,7 @@
 .postContent p {
   @apply text-base;
   @apply py-1;
+  @apply inline;
 }
 
 .postContent h2 {
