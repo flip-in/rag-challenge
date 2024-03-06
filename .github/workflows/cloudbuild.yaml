@@ -11,7 +11,7 @@ env:
   REACT_APP_OPEN_AI_KEY: ${{ secrets.REACT_APP_OPEN_AI_KEY }}
   KINDE_CLIENT_ID: ${{secrets.KINDE_CLIENT_ID}}
   KINDE_CLIENT_SECRET: ${{secrets.KINDE_CLIENT_SECRET}}
-  CLOUD_RUN_REGION: asia-northeast1
+  CLOUD_RUN_REGION: europe-west4
   # project-name but it can be anything you want
   REPO_NAME: rag-challenge
   DATABASE_URL: 'file:./dev.db'
