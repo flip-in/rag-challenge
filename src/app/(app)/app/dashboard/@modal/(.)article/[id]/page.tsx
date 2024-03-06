@@ -55,11 +55,6 @@ export default function ArticleModal({
         ) : (
           <Loading />
         )}
-        {excerpts.length > 1 && (
-          <DialogFooter>
-            <Legend />
-          </DialogFooter>
-        )}
       </DialogContent>
     </Dialog>
   );
@@ -95,9 +90,16 @@ function ArticleContent({ content, excerpts }: ArticleContentProps) {
   );
 
   return (
-    <div className={styles.postContent}>
-      {excerpts ? parse(highLightedText) : parse(content)}
-    </div>
+    <>
+      <div className={styles.postContent}>
+        {excerpts ? parse(highLightedText) : parse(content)}
+      </div>
+      {excerpts.length > 1 && (
+        <DialogFooter>
+          <Legend />
+        </DialogFooter>
+      )}
+    </>
   );
 }
 
