@@ -64,4 +64,3 @@ jobs:
             --region $CLOUD_RUN_REGION \
             --allow-unauthenticated \
             --quiet
-            --set-env-vars A=VALUE,B=VALUE
