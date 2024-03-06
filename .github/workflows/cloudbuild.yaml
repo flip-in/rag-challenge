@@ -12,19 +12,19 @@ env:
   # project-name but it can be anything you want
   REPO_NAME: rag-challenge
   DATABASE_URL: 'file:./dev.db'
-  REACT_APP_OPEN_AI_KEY: ${{ secrets.REACT_APP_OPEN_AI_KEY }}
-  KINDE_CLIENT_ID: ${{secrets.KINDE_CLIENT_ID}}
-  KINDE_CLIENT_SECRET: ${{secrets.KINDE_CLIENT_SECRET}}
-  KINDE_ISSUER_URL: https://kinexis.kinde.com
-  KINDE_SITE_URL: https://rag-challenge-urg7zhyvwa-an.a.run.app
-  KINDE_POST_LOGOUT_REDIRECT_URL: https://rag-challenge-urg7zhyvwa-an.a.run.app
-  KINDE_POST_LOGIN_REDIRECT_URL: https://rag-challenge-urg7zhyvwa-an.a.run.app/app/dashboard
 
 jobs:
   build-and-deploy:
     name: Setup, Build, and Deploy
     runs-on: ubuntu-latest
     steps:
+      - name: 'Add env to .env'
+        run: |
+          echo "REACT_APP_OPEN_AI_KEY=$REACT_APP_OPEN_AI_KEY" >> .env
+          echo "KINDE_CLIENT_ID=$KINDE_CLIENT_ID" >> .env
+          echo "KINDE_CLIENT_SECRET=$KINDE_CLIENT_SECRET" >> .env
+          cat env
+
       - name: Checkout
         uses: actions/checkout@v2
 
