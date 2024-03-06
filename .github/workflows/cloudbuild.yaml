@@ -38,9 +38,6 @@ jobs:
           gcloud --quiet auth configure-docker
       - name: Build and tag image
         run: |-
-          docker build . --tag "gcr.io/$CLOUD_RUN_PROJECT_ID/$REPO_NAME:$GITHUB_SHA"
-      - name: Push image to GCR
-        run: |-
           touch .env
           echo DATABASE_URL="$DATABASE_URL" >> .env
           echo REACT_APP_OPEN_AI_KEY="$REACT_APP_OPEN_AI_KEY" >> .env
@@ -51,6 +48,9 @@ jobs:
           echo KINDE_POST_LOGOUT_REDIRECT_URL="https://rag-challenge-urg7zhyvwa-an.a.run.app" >> .env
           echo KINDE_POST_LOGIN_REDIRECT_URL="https://rag-challenge-urg7zhyvwa-an.a.run.app/app/dashboard" >> .env
           cat .env
+          docker build . --tag "gcr.io/$CLOUD_RUN_PROJECT_ID/$REPO_NAME:$GITHUB_SHA"
+      - name: Push image to GCR
+        run: |-
           docker push gcr.io/$CLOUD_RUN_PROJECT_ID/$REPO_NAME:$GITHUB_SHA
 
       - name: Deploy

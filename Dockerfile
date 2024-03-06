@@ -14,6 +14,7 @@ RUN npm ci
 COPY . .  
 
 ENV DATABASE_URL="file:./dev.db"
+ENV OPENAI_API_KEY="ksdkljsdflkj"
 
 # Build the Next.js app  
 RUN npx prisma generate
