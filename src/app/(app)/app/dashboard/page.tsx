@@ -12,12 +12,6 @@ type PageProps = {
 };
 
 export default async function Page({ searchParams }: PageProps) {
-  const { isAuthenticated } = getKindeServerSession();
-  const isLoggedIn = await isAuthenticated();
-  if (!isLoggedIn) {
-    redirect('/api/auth/login');
-  }
-
   const posts = await prisma.post.findMany({});
 
   return (
