@@ -13,6 +13,9 @@ RUN npm ci
 # Copy the app source code to the container  
 COPY . .  
 
+ENV DATABASE_URL="file:./dev.db"
+ENV OPENAI_API_KEY="ksdkljsdflkj"
+
 # Build the Next.js app  
 RUN npx prisma generate
 RUN npx prisma migrate deploy
