@@ -12,6 +12,7 @@ env:
   # project-name but it can be anything you want
   REPO_NAME: rag-challenge
   DATABASE_URL: 'file:./dev.db'
+  REACT_APP_OPEN_AI_KEY: ${{ secrets.REACT_APP_OPEN_AI_KEY }}
 
 jobs:
   build-and-deploy:

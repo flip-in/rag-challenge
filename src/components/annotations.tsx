@@ -36,14 +36,11 @@ function Annotation({ source }: AnnotationProps) {
   const router = useRouter();
   const [title, setTitle] = useState('');
 
-  const createQueryString = useCallback(
-    (obj: Record<string, any>) => {
-      return queryString.stringify({
-        excerpts: JSON.stringify(obj.excerpts),
-      });
-    },
-    [source]
-  );
+  const createQueryString = useCallback((obj: Record<string, any>) => {
+    return queryString.stringify({
+      excerpts: JSON.stringify(obj.excerpts),
+    });
+  }, []);
 
   const handleClick = () => {
     const newQueryString = createQueryString(source);
