@@ -1,7 +1,5 @@
 import AppHeader from '@/components/app-header';
 import BackgroundPattern from '@/components/background-pattern';
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
-import { redirect } from 'next/navigation';
 
 type DashboardLayoutProps = {
   children: React.ReactNode;
@@ -10,11 +8,6 @@ type DashboardLayoutProps = {
 export default async function DashboardLayout({
   children,
 }: DashboardLayoutProps) {
-  const { isAuthenticated } = getKindeServerSession();
-  const isLoggedIn = await isAuthenticated();
-  if (!isLoggedIn) {
-    redirect('/api/auth/login');
-  }
   return (
     <>
       <BackgroundPattern />
