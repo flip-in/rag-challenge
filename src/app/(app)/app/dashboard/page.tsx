@@ -20,7 +20,7 @@ export default async function Page() {
 
   return (
     <main className=''>
-      <div className='flex justify-between items-center text-white md:p-8 pt-4 pb-10'>
+      <div className='flex justify-between items-center text-white md:py-8 pt-4 pb-10'>
         <Branding />
       </div>
       <div className='md:grid md:grid-cols-3 grid-rows-[45px_300px_500px] md:grid-rows-[45px_1fr] gap-4 md:h-[70vh]'>
