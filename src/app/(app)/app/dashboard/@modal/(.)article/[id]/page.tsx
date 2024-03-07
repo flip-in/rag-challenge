@@ -41,17 +41,14 @@ export default function ArticleModal({
     <Dialog open={true} onOpenChange={() => router.back()}>
       <DialogContent
         className={cn(
-          'max-h-screen min-h-screen md:min-h-[40vh] md:max-h-[70vh] scrollbar overflow-y-scroll md:overflow-y-auto max-w-full md:max-w-[70vw] 2xl:max-w-[40%] ',
-          styles
+          'max-h-[90vh] min-h-[90vh] md:min-h-[65%] md:max-h-[65%] max-w-full md:max-w-[70vw] 2xl:max-w-[50%] scrollbar overflow-y-scroll md:overflow-y-auto '
         )}
       >
         {post ? (
-          <ArticleHeader title={post.title} author={post.author} />
-        ) : (
-          <Loading />
-        )}
-        {post ? (
-          <ArticleContent content={post.content} excerpts={excerpts} />
+          <>
+            <ArticleHeader title={post.title} author={post.author} />
+            <ArticleContent content={post.content} excerpts={excerpts} />
+          </>
         ) : (
           <Loading />
         )}
@@ -67,14 +64,12 @@ type ArticleHeaderProps = {
 
 function ArticleHeader({ title, author }: ArticleHeaderProps) {
   return (
-    <>
-      <DialogHeader>
-        <DialogTitle>{title}</DialogTitle>
-        <DialogDescription asChild>
-          <p>{author}</p>
-        </DialogDescription>
-      </DialogHeader>
-    </>
+    <DialogHeader className='mt-2 mb-6 text-left'>
+      <DialogTitle>{title}</DialogTitle>
+      <DialogDescription asChild>
+        <p>{author}</p>
+      </DialogDescription>
+    </DialogHeader>
   );
 }
 
@@ -105,7 +100,7 @@ function ArticleContent({ content, excerpts }: ArticleContentProps) {
 
 function Legend() {
   return (
-    <div>
+    <div className='mt-6 ml-auto'>
       <p className='text-sm'>Legend:</p>
       <ul className='text-xs'>
         <li className='bg-yellow-100 px-2 font-light'>Low Weight</li>
@@ -116,12 +111,37 @@ function Legend() {
   );
 }
 
+function LoadingContent() {
+  return (
+    <div className='flex flex-col gap-y-4'>
+      <Skeleton className='h-6 w-1/2 mb-4' />
+      <Skeleton className='h-4 w-full' />
+      <Skeleton className='h-4 w-full ' />
+      <Skeleton className='h-4 w-2/3' />
+    </div>
+  );
+}
+
+function LoadingHeader() {
+  return (
+    <div className='flex flex-col space-y-1.5 text-center sm:text-left my-2'>
+      <Skeleton className='h-5 w-[300px]' />
+      <Skeleton className='h-4 w-[200px]' />
+    </div>
+  );
+}
+
 function Loading() {
   return (
-    <div className='flex flex-col items-center gap-y-4 pt-28'>
-      <Skeleton className='h-4 w-2/3 bg-neutral-400' />
-      <Skeleton className='h-4 w-2/3 bg-neutral-400' />
-      <Skeleton className='h-4 w-2/3 bg-neutral-400' />
+    <div className='grid'>
+      <LoadingHeader />
+      <div className='flex flex-col h-full mt-10 justify-evenly'>
+        <div className='space-y-12 flex flex-col'>
+          <LoadingContent />
+          <LoadingContent />
+          <LoadingContent />
+        </div>
+      </div>
     </div>
   );
 }
