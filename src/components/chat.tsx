@@ -88,7 +88,7 @@ export default function Chat() {
             onChange={(e) => setMockInput(e.target.value)}
             // onChange={handleInputChange}
             placeholder='Try asking about layoffs or space travel..'
-            className='bg-white'
+            className='bg-white !text-base'
           />
           <Button type='submit'>Send</Button>
         </div>

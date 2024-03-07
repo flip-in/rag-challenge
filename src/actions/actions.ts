@@ -5,7 +5,7 @@ import prisma from "@/lib/db"
 import { notFound } from "next/navigation"
 
 export async function getMessage(input: string){
-  if (input.includes('space')) {
+  if (input.toLowerCase().includes('space')) {
     return {
       id: new Date().getTime().toString(),
       role: 'assistant',
@@ -38,7 +38,7 @@ export async function getMessage(input: string){
       ],
   
     }
-  } else if (input.includes('layoffs')) {
+  } else if (input.toLowerCase().includes('layoffs')) {
     return {
       id: new Date().getTime().toString(),
       role: 'assistant',
