@@ -32,7 +32,7 @@ export default async function Page({ params, searchParams }: PageProps) {
 
   return (
     <main className='my-16'>
-      <ContentBlock className='min-h-[80vh] p-12'>
+      <ContentBlock className='min-h-[80vh] md:p-12 p-4 bg-neutral-50'>
         <H1 className='capitalize'>{post.title}</H1>
         <p className='mt-2'>{post.author}</p>
         <div className='mt-8'>
