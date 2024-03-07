@@ -4,13 +4,12 @@ import Link from 'next/link';
 
 type PostListProps = {
   posts: Post[];
-  sourceArticle: Annotation;
 };
 
 export default function PostList({ posts }: PostListProps) {
   return (
     <>
-      <ul className='bg-white border-b border-light'>
+      <ul className='bg-white border-b border-light my-4 md:my-0'>
         {posts.map((post) => {
           return (
             <li key={post.id} className='flex w-full cursor-pointer'>

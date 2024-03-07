@@ -36,7 +36,7 @@ export default async function Page({ params, searchParams }: PageProps) {
         <H1 className='capitalize'>{post.title}</H1>
         <p className='mt-2'>{post.author}</p>
         <div className='mt-8'>
-          <Suspense fallback={<Loading />}>
+          <Suspense fallback={<Loading />} key={params.id}>
             <ArticleContent content={post.content} excerpts={excerpts} />
             {excerpts.length > 1 && (
               <div className='float-right'>
