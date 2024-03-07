@@ -12,6 +12,8 @@ import { sleep } from '@/lib/utils';
 import { Response } from '@/lib/types';
 import React from 'react';
 import Annotations from './annotations';
+import { Textarea } from './ui/textarea';
+import { IoIosSend } from 'react-icons/io';
 
 export default function Chat() {
   // const { messages, input, handleInputChange, handleSubmit, setMessages } =
@@ -82,8 +84,8 @@ export default function Chat() {
         className='flex flex-col m-4 space-y-4'
       >
         <Label>Say something...</Label>
-        <div className='flex gap-x-4'>
-          <Input
+        <div className='flex gap-x-2 md:gap-x-4'>
+          <Textarea
             required
             value={mockInput}
             // value={input}
@@ -92,7 +94,13 @@ export default function Chat() {
             placeholder='Try asking about layoffs or space travel..'
             className='bg-white !text-base'
           />
-          <Button type='submit'>Send</Button>
+          <Button
+            type='submit'
+            className='self-center md:self-end h-10 w-12 p-0 md:px-8 md:h-9 rounded-full md:rounded-lg'
+          >
+            <span className='hidden md:block'>Send</span>
+            <IoIosSend className='md:hidden' size={16} />
+          </Button>
         </div>
       </form>
     </section>

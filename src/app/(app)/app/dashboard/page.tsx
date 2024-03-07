@@ -20,7 +20,7 @@ export default async function Page() {
 
   return (
     <main className=''>
-      <div className='flex justify-between items-center text-white md:p-8 pt-8 pb-12'>
+      <div className='flex justify-between items-center text-white md:p-8 pt-4 pb-10'>
         <Branding />
       </div>
       <div className='md:grid md:grid-cols-3 grid-rows-[45px_300px_500px] md:grid-rows-[45px_1fr] gap-4 md:h-[70vh]'>
@@ -36,7 +36,7 @@ export default async function Page() {
         </div>
 
         <div className='md:row-start-1 md:row-span-full md:col-start-2 md:col-span-full flex '>
-          <ContentBlock className='h-[65vh] md:h-full'>
+          <ContentBlock className='h-[70vh] md:h-full'>
             <Chat />
           </ContentBlock>
         </div>
@@ -52,7 +52,7 @@ function PostSheet({ posts }: { posts: Post[] }) {
         <button
           role='button'
           aria-label='Open post list'
-          className='fixed h-7 w-8 flex items-center justify-end bg-neutral-200/80 left-0 top-[123px] pr-2 text-xl rounded-r-lg '
+          className='fixed h-7 w-8 flex items-center justify-end bg-neutral-200/80 left-0 top-[105px] pr-2 text-xl rounded-r-lg '
         >
           {'>'}
         </button>
