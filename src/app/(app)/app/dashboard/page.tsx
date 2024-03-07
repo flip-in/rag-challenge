@@ -52,7 +52,7 @@ function PostSheet({ posts }: { posts: Post[] }) {
         <button
           role='button'
           aria-label='Open post list'
-          className='fixed h-7 w-8 flex items-center justify-end bg-neutral-200/80 left-0 top-[105px] pr-2 text-xl rounded-r-lg '
+          className='fixed h-7 w-8 flex items-center justify-end bg-neutral-200/80 left-0 top-[105px] pr-2 text-xl rounded-r-lg animate-bounce'
         >
           {'>'}
         </button>
