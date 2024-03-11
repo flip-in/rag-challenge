@@ -21,7 +21,7 @@ export default function ArticleContent({
 
   return (
     <>
-      <div className={styles.postContent}>
+      <div className={styles.articleContent}>
         {excerpts ? parse(highLightedText) : parse(content)}
       </div>
       {excerpts.length > 1 && (

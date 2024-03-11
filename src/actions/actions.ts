@@ -1,6 +1,6 @@
 'use server'
 
-import { Post } from "@prisma/client"
+import { Article } from "@prisma/client"
 import prisma from "@/lib/db"
 import { notFound } from "next/navigation"
 
@@ -90,16 +90,16 @@ export async function getMessage(input: string){
 }
 }
 
-export async function getPostById(id: number): Promise<Post>{
-  const post = await prisma.post.findUnique({
+export async function getArticleById(id: number): Promise<Article>{
+  const article = await prisma.article.findUnique({
     where: {
       id: id
     }
   })
-  if (!post) {
+  if (!article) {
     return notFound()
   }
 
-  return post
+  return article
 }
 

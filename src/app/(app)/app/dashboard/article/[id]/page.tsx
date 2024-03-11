@@ -1,4 +1,4 @@
-import { getPostById } from '@/actions/actions';
+import { getArticleById } from '@/actions/actions';
 import ContentBlock from '@/components/content-block';
 import H1 from '@/components/h1';
 import { Excerpt } from '@/lib/types';
@@ -16,25 +16,25 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const id = +params.id;
-  const post = await getPostById(id);
+  const article = await getArticleById(id);
 
   return {
-    title: post.title + ' | IntelInsight',
+    title: article.title + ' | IntelInsight',
   };
 }
 
 export default async function Page({ params, searchParams }: PageProps) {
   const excerpts = JSON.parse(searchParams.excerpts || '[]') as Excerpt[];
-  const post = await getPostById(+params.id);
+  const article = await getArticleById(+params.id);
 
   return (
     <main className='my-16'>
       <ContentBlock className='min-h-[80vh] md:p-12 p-4 bg-neutral-50'>
-        <H1 className='capitalize'>{post.title}</H1>
-        <p className='mt-2'>{post.author}</p>
+        <H1 className='capitalize'>{article.title}</H1>
+        <p className='mt-2'>{article.author}</p>
         <div className='mt-8'>
           <Suspense fallback={<Loading />} key={params.id}>
-            <ArticleContent content={post.content} excerpts={excerpts} />
+            <ArticleContent content={article.content} excerpts={excerpts} />
           </Suspense>
         </div>
       </ContentBlock>

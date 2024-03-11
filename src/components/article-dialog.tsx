@@ -1,7 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
-import { Post } from '@prisma/client';
+import { Article } from '@prisma/client';
 import { Excerpt } from '@/lib/types';
 import ArticleHeader from './article-header';
 import ArticleContent from './article-content';
@@ -9,11 +9,14 @@ import Skeleton from './skeleton';
 import { cn } from '@/lib/utils';
 
 type ArticleDialogProps = {
-  post: Post;
+  article: Article;
   excerpts: Excerpt[];
 };
 
-export default function ArticleDialog({ post, excerpts }: ArticleDialogProps) {
+export default function ArticleDialog({
+  article,
+  excerpts,
+}: ArticleDialogProps) {
   const router = useRouter();
   return (
     <Dialog open={true} onOpenChange={() => router.back()}>
@@ -22,10 +25,10 @@ export default function ArticleDialog({ post, excerpts }: ArticleDialogProps) {
           'max-h-[90vh] min-h-[90vh] md:min-h-[65%] md:max-h-[65%] max-w-full md:max-w-[70vw] 2xl:max-w-[50%] scrollbar overflow-y-scroll md:overflow-y-auto '
         )}
       >
-        {post ? (
+        {article ? (
           <>
-            <ArticleHeader title={post.title} author={post.author} />
-            <ArticleContent content={post.content} excerpts={excerpts} />
+            <ArticleHeader title={article.title} author={article.author} />
+            <ArticleContent content={article.content} excerpts={excerpts} />
           </>
         ) : (
           <Loading />

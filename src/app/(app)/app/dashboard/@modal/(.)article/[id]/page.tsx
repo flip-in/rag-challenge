@@ -1,4 +1,4 @@
-import { getPostById } from '@/actions/actions';
+import { getArticleById } from '@/actions/actions';
 import { Excerpt } from '@/lib/types';
 import ArticleDialog from '@/components/article-dialog';
 
@@ -13,7 +13,7 @@ export default async function ArticleModal({
 }: ArticleModalProps) {
   const excerpts = JSON.parse(searchParams.excerpts || '[]') as Excerpt[];
   const id = +params.id;
-  const post = await getPostById(id);
+  const article = await getArticleById(id);
 
-  return <ArticleDialog post={post} excerpts={excerpts} />;
+  return <ArticleDialog article={article} excerpts={excerpts} />;
 }

@@ -1,5 +1,5 @@
 import queryString from 'query-string';
-import { getPostById } from '@/actions/actions';
+import { getArticleById } from '@/actions/actions';
 import { Annotation } from '@/lib/types';
 import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
@@ -42,8 +42,8 @@ function Annotation({ source }: AnnotationProps) {
   }, []);
 
   useEffect(() => {
-    getPostById(source.id).then((post) => {
-      setTitle(post.title);
+    getArticleById(source.id).then((article) => {
+      setTitle(article.title);
     });
   }, [source.id]);
 

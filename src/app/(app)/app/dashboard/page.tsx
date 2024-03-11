@@ -1,13 +1,13 @@
 import Branding from '@/components/branding';
 import Chat from '@/components/chat';
 import ContentBlock from '@/components/content-block';
-import PostList from '@/components/post-list';
+import ArticleList from '@/components/article-list';
 import prisma from '@/lib/db';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Post } from '@prisma/client';
+import { Article } from '@prisma/client';
 
 export default async function Page() {
-  const posts = await prisma.post.findMany({});
+  const articles = await prisma.article.findMany({});
 
   return (
     <main className=''>
@@ -18,10 +18,10 @@ export default async function Page() {
         <div className='md:row-start-2 md:row-span-full md:col-start-1 md:col-span-1 relative md:h-[70vh]'>
           <ContentBlock className='scrollbar overflow-y-auto'>
             <div className='hidden md:block'>
-              <PostList posts={posts} />
+              <ArticleList articles={articles} />
             </div>
             <div className='flex flex-col overflow-y-scroll'>
-              <PostSheet posts={posts} />
+              <ArticleSheet articles={articles} />
             </div>
           </ContentBlock>
         </div>
@@ -36,20 +36,20 @@ export default async function Page() {
   );
 }
 
-function PostSheet({ posts }: { posts: Post[] }) {
+function ArticleSheet({ articles }: { articles: Article[] }) {
   return (
     <Sheet>
       <SheetTrigger className='md:hidden' asChild>
         <button
           role='button'
-          aria-label='Open post list'
+          aria-label='Open article list'
           className='fixed h-7 w-8 flex items-center justify-end bg-neutral-200/80 left-0 top-[105px] pr-2 text-xl rounded-r-lg animate-bounce'
         >
           {'>'}
         </button>
       </SheetTrigger>
       <SheetContent side='left' className='overflow-y-auto pt-4'>
-        <PostList posts={posts} />
+        <ArticleList articles={articles} />
       </SheetContent>
     </Sheet>
   );
