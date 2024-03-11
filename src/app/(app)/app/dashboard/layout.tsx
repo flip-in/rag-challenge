@@ -1,4 +1,5 @@
-import React from 'react';
+import LoadingDialog from '@/components/loading-dialog';
+import React, { Suspense } from 'react';
 
 export default function Layout({
   children,
@@ -10,7 +11,7 @@ export default function Layout({
   return (
     <>
       {children}
-      {modal}
+      <Suspense fallback={<LoadingDialog />}>{modal}</Suspense>
     </>
   );
 }

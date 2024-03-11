@@ -3,17 +3,8 @@ import Chat from '@/components/chat';
 import ContentBlock from '@/components/content-block';
 import PostList from '@/components/post-list';
 import prisma from '@/lib/db';
-import { Annotation } from '@/lib/types';
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Post } from '@prisma/client';
-import Link from 'next/link';
 
 export default async function Page() {
   const posts = await prisma.post.findMany({});

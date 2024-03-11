@@ -1,5 +1,4 @@
 import { Post } from '@prisma/client';
-import { Annotation } from '@/lib/types';
 import Link from 'next/link';
 
 type PostListProps = {
@@ -17,6 +16,7 @@ export default function PostList({ posts }: PostListProps) {
                 href={`/app/dashboard/article/${post.id}`}
                 scroll={false}
                 className='text-left w-full'
+                prefetch
               >
                 <div className=' p-4 border-b border-light hover:bg-zinc-100'>
                   <h2 className='text-md'>{post.title}</h2>
