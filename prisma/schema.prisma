@@ -10,7 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post {
+model Article {
   id       Int     @id @default(autoincrement())
   category String
   title    String

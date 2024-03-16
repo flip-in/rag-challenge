@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma: any = new PrismaClient();
 
-const posts = [
+const articles = [
   {
     category: "Tech",
     title: "AI is eating humans for knowledge",
@@ -217,8 +217,8 @@ const posts = [
 
 async function main() {
   console.log(`Start seeding...`);
-  for (const post of posts) {
-    await prisma.post.create({ data: post });
+  for (const article of articles) {
+    await prisma.article.create({ data: article });
   }
   console.log(`Seeding finished.`);
 }

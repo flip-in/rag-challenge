@@ -1,14 +1,11 @@
-import { getPostById } from '@/actions/actions';
+import { getArticleById } from '@/actions/actions';
 import ContentBlock from '@/components/content-block';
 import H1 from '@/components/h1';
 import { Excerpt } from '@/lib/types';
 import { Metadata } from 'next';
-import { ArticleContentProps } from '../../@modal/(.)article/[id]/page';
-import { Suspense, useMemo } from 'react';
+import { Suspense } from 'react';
 import Loading from './loading';
-import { highlightText } from '@/lib/utils';
-import parse from 'html-react-parser';
-import styles from '@/components/ui/dialog.module.css';
+import ArticleContent from '@/components/article-content';
 
 type PageProps = {
   params: { id: string };
@@ -19,59 +16,28 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const id = +params.id;
-  const post = await getPostById(id);
+  const article = await getArticleById(id);
 
   return {
-    title: post.title + ' | IntelInsight',
+    title: article.title + ' | IntelInsight',
   };
 }
 
 export default async function Page({ params, searchParams }: PageProps) {
   const excerpts = JSON.parse(searchParams.excerpts || '[]') as Excerpt[];
-  const post = await getPostById(+params.id);
+  const article = await getArticleById(+params.id);
 
   return (
     <main className='my-16'>
       <ContentBlock className='min-h-[80vh] md:p-12 p-4 bg-neutral-50'>
-        <H1 className='capitalize'>{post.title}</H1>
-        <p className='mt-2'>{post.author}</p>
+        <H1 className='capitalize'>{article.title}</H1>
+        <p className='mt-2'>{article.author}</p>
         <div className='mt-8'>
           <Suspense fallback={<Loading />} key={params.id}>
-            <ArticleContent content={post.content} excerpts={excerpts} />
-            {excerpts.length > 1 && (
-              <div className='float-right'>
-                <Legend />
-              </div>
-            )}
+            <ArticleContent content={article.content} excerpts={excerpts} />
           </Suspense>
         </div>
       </ContentBlock>
     </main>
-  );
-}
-
-function ArticleContent({ content, excerpts }: ArticleContentProps) {
-  const highLightedText = useMemo(
-    () => highlightText(content, excerpts),
-    [content, excerpts]
-  );
-
-  return (
-    <div className={styles.postContent}>
-      {excerpts ? parse(highLightedText) : parse(content)}
-    </div>
-  );
-}
-
-function Legend() {
-  return (
-    <div>
-      <p className='text-sm'>Legend:</p>
-      <ul className='text-xs'>
-        <li className='bg-yellow-100 px-2 font-light'>Low Weight</li>
-        <li className='bg-yellow-500/40 px-2 font-medium'>Medium Weight</li>
-        <li className='bg-red-300 px-2 font-semibold'>Heavy Weight</li>
-      </ul>
-    </div>
   );
 }

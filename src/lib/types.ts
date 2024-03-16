@@ -1,7 +1,3 @@
-import { Post } from '@prisma/client'
-
-// export type PostEssentials = Omit<Post, 'id' | 'createdAt' | 'updatedAt'>
-
 export type Response = {
   id: string;
   role: string;

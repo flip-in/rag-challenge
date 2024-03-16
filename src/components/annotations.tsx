@@ -1,8 +1,8 @@
 import queryString from 'query-string';
-import { getPostById } from '@/actions/actions';
+import { getArticleById } from '@/actions/actions';
 import { Annotation } from '@/lib/types';
-import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
+import Link from 'next/link';
 
 type AnnotationsProps = {
   sources: Annotation[];
@@ -33,7 +33,6 @@ type AnnotationProps = {
 };
 
 function Annotation({ source }: AnnotationProps) {
-  const router = useRouter();
   const [title, setTitle] = useState('');
 
   const createQueryString = useCallback((obj: Record<string, any>) => {
@@ -42,22 +41,22 @@ function Annotation({ source }: AnnotationProps) {
     });
   }, []);
 
-  const handleClick = () => {
-    const newQueryString = createQueryString(source);
-    router.push(`/app/dashboard/article/${source.id}?` + newQueryString, {
-      scroll: false,
-    });
-  };
-
   useEffect(() => {
-    getPostById(source.id).then((post) => {
-      setTitle(post ? post.title : 'No title');
+    getArticleById(source.id).then((article) => {
+      setTitle(article.title);
     });
   }, [source.id]);
 
   return (
-    <div className='cursor-pointer' onClick={handleClick}>
+    <Link
+      href={{
+        pathname: `/app/dashboard/article/${source.id}`,
+        query: createQueryString(source),
+      }}
+      prefetch
+      scroll={false}
+    >
       {title}
-    </div>
+    </Link>
   );
 }

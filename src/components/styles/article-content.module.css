@@ -1,29 +1,29 @@
-.postContent h1 {
+.articleContent h1 {
   @apply text-3xl;
   @apply py-2;
 }
 
-.postContent p {
+.articleContent p {
   @apply text-base;
   @apply py-1;
 }
 
-.postContent h2 {
+.articleContent h2 {
   @apply text-2xl;
   @apply py-2;
 }
 
-.postContent h3 {
+.articleContent h3 {
   @apply text-lg;
   @apply py-2;
 }
 
-.postContent ul {
+.articleContent ul {
   @apply list-disc;
   @apply pl-10;
   @apply py-4;
 }
 
-.postContent span {
+.articleContent span {
   @apply bg-red-300;
 }
